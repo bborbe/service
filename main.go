@@ -56,13 +56,14 @@ func Main(
 			httpTransport,
 			*sentryProxy,
 		)
+		glog.V(2).Infof("use sentryProxy %s", *sentryProxy)
 	}
 	sentryClient, err := libsentry.NewClient(
 		ctx,
 		sentry.ClientOptions{
 			Dsn:              *sentryDSN,
 			TracesSampleRate: 1.0,
-			HTTPTransport:    http.DefaultTransport,
+			HTTPTransport:    httpTransport,
 		},
 	)
 	if err != nil {
