@@ -14,12 +14,6 @@ import (
 	"github.com/golang/glog"
 )
 
-type DSN string
-
-func (f DSN) String() string {
-	return string(f)
-}
-
 //counterfeiter:generate -o mocks/sentry-client.go --fake-name SentryClient . Client
 type Client interface {
 	CaptureMessage(message string, hint *sentry.EventHint, scope sentry.EventModifier) *sentry.EventID
@@ -27,18 +21,11 @@ type Client interface {
 	io.Closer
 }
 
-func NewClient(ctx context.Context, dsn DSN) (Client, error) {
-	newClient, err := sentry.NewClient(sentry.ClientOptions{
-		Dsn: dsn.String(),
-		// Set TracesSampleRate to 1.0 to capture 100%
-		// of transactions for performance monitoring.
-		// We recommend adjusting this value in production,
-		TracesSampleRate: 1.0,
-	})
+func NewClient(ctx context.Context, clientOptions sentry.ClientOptions) (Client, error) {
+	newClient, err := sentry.NewClient(clientOptions)
 	if err != nil {
 		return nil, errors.Wrapf(ctx, err, "create sentry client failed")
 	}
-
 	return &client{
 		client: newClient,
 	}, nil

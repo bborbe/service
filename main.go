@@ -7,14 +7,16 @@ package service
 import (
 	"context"
 	"flag"
+	"net/http"
 	"os"
 	"os/signal"
 	"runtime"
 	"syscall"
 	"time"
 
-	argument "github.com/bborbe/argument/v2"
+	"github.com/bborbe/argument/v2"
 	libsentry "github.com/bborbe/sentry"
+	"github.com/getsentry/sentry-go"
 	"github.com/golang/glog"
 )
 
@@ -27,6 +29,7 @@ func Main(
 	ctx context.Context,
 	app Application,
 	sentryDSN *string,
+	sentryProxy *string,
 	fns ...OptionFn,
 ) int {
 	defer glog.Flush()
@@ -47,9 +50,20 @@ func Main(
 		glog.Errorf("sentryDSN args missing")
 		return 3
 	}
+	httpTransport := http.DefaultTransport
+	if sentryProxy != nil {
+		httpTransport = libsentry.NewProxyRoundTripper(
+			httpTransport,
+			*sentryProxy,
+		)
+	}
 	sentryClient, err := libsentry.NewClient(
 		ctx,
-		libsentry.DSN(*sentryDSN),
+		sentry.ClientOptions{
+			Dsn:              *sentryDSN,
+			TracesSampleRate: 1.0,
+			HTTPTransport:    http.DefaultTransport,
+		},
 	)
 	if err != nil {
 		glog.Errorf("setting up Sentry failed: %+v", err)
