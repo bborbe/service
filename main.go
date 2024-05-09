@@ -70,7 +70,10 @@ func Main(
 		glog.Errorf("setting up Sentry failed: %+v", err)
 		return 2
 	}
-	defer sentryClient.Close()
+	defer func() {
+		_ = sentryClient.Flush(2 * time.Second)
+		_ = sentryClient.Close()
+	}()
 
 	service := NewService(
 		sentryClient,

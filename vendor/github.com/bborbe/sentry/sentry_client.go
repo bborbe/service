@@ -18,6 +18,7 @@ import (
 type Client interface {
 	CaptureMessage(message string, hint *sentry.EventHint, scope sentry.EventModifier) *sentry.EventID
 	CaptureException(exception error, hint *sentry.EventHint, scope sentry.EventModifier) *sentry.EventID
+	Flush(timeout stdtime.Duration) bool
 	io.Closer
 }
 
@@ -33,6 +34,10 @@ func NewClient(ctx context.Context, clientOptions sentry.ClientOptions) (Client,
 
 type client struct {
 	client *sentry.Client
+}
+
+func (c *client) Flush(timeout stdtime.Duration) bool {
+	return c.client.Flush(timeout)
 }
 
 func (c *client) CaptureMessage(message string, hint *sentry.EventHint, scope sentry.EventModifier) *sentry.EventID {
