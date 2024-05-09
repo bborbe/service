@@ -79,8 +79,13 @@ func (s *service) Run(ctx context.Context) error {
 		glog.V(4).Infof("run finished with error, but is excluded")
 		return nil
 	}
-	s.sentryClient.CaptureException(err, &sentry.EventHint{
-		Context: ctx,
-	}, nil)
+	s.sentryClient.CaptureException(
+		err,
+		&sentry.EventHint{
+			Context: ctx,
+			Data:    errors.DataFromError(err),
+		},
+		sentry.NewScope(),
+	)
 	return errors.Wrapf(ctx, err, "application failed")
 }

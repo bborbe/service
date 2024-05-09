@@ -27,6 +27,19 @@ func NewClient(ctx context.Context, clientOptions sentry.ClientOptions) (Client,
 	if err != nil {
 		return nil, errors.Wrapf(ctx, err, "create sentry client failed")
 	}
+	newClient.AddEventProcessor(func(event *sentry.Event, hint *sentry.EventHint) *sentry.Event {
+		if hint.Context != nil {
+			for k, v := range errors.DataFromContext(hint.Context) {
+				event.Tags[k] = v
+			}
+		}
+		if hint.OriginalException != nil {
+			for k, v := range errors.DataFromError(hint.OriginalException) {
+				event.Tags[k] = v
+			}
+		}
+		return event
+	})
 	return &client{
 		client: newClient,
 	}, nil

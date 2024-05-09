@@ -1,12 +1,12 @@
 module github.com/bborbe/service
 
-go 1.22.2
+go 1.22.3
 
 require (
 	github.com/bborbe/argument/v2 v2.0.4
 	github.com/bborbe/errors v1.2.0
 	github.com/bborbe/run v1.5.2
-	github.com/bborbe/sentry v1.4.0
+	github.com/bborbe/sentry v1.5.0
 	github.com/getsentry/sentry-go v0.27.0
 	github.com/golang/glog v1.2.1
 	github.com/google/addlicense v1.1.1

@@ -7,8 +7,8 @@ github.com/bborbe/errors
 # github.com/bborbe/run v1.5.2
 ## explicit; go 1.22.2
 github.com/bborbe/run
-# github.com/bborbe/sentry v1.4.0
-## explicit; go 1.22.2
+# github.com/bborbe/sentry v1.5.0
+## explicit; go 1.22.3
 github.com/bborbe/sentry
 # github.com/bborbe/time v1.2.0
 ## explicit; go 1.22.1
