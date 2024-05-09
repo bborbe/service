@@ -82,8 +82,8 @@ func (s *service) Run(ctx context.Context) error {
 	s.sentryClient.CaptureException(
 		err,
 		&sentry.EventHint{
-			Context: ctx,
-			Data:    errors.DataFromError(err),
+			Context:           ctx,
+			OriginalException: err,
 		},
 		sentry.NewScope(),
 	)
