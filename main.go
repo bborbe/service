@@ -30,7 +30,7 @@ func Main(
 	app Application,
 	sentryDSN *string,
 	sentryProxy *string,
-	fns ...OptionFn,
+	fns ...OptionsFn,
 ) int {
 	defer glog.Flush()
 	glog.CopyStandardLogTo("info")
@@ -45,6 +45,8 @@ func Main(
 		glog.Errorf("parse app failed: %v", err)
 		return 4
 	}
+
+	options := NewOptions(fns...)
 
 	if sentryDSN == nil {
 		glog.Errorf("sentryDSN args missing")
@@ -65,6 +67,7 @@ func Main(
 			TracesSampleRate: 1.0,
 			HTTPTransport:    httpTransport,
 		},
+		options.ExcludeErrors...,
 	)
 	if err != nil {
 		glog.Errorf("setting up Sentry failed: %+v", err)
@@ -78,7 +81,6 @@ func Main(
 	service := NewService(
 		sentryClient,
 		app,
-		fns...,
 	)
 
 	glog.V(0).Infof("application started")

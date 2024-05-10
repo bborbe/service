@@ -22,7 +22,7 @@ type Client interface {
 	io.Closer
 }
 
-func NewClient(ctx context.Context, clientOptions sentry.ClientOptions) (Client, error) {
+func NewClient(ctx context.Context, clientOptions sentry.ClientOptions, excludeErrors ...ExcludeError) (Client, error) {
 	newClient, err := sentry.NewClient(clientOptions)
 	if err != nil {
 		return nil, errors.Wrapf(ctx, err, "create sentry client failed")
@@ -41,12 +41,14 @@ func NewClient(ctx context.Context, clientOptions sentry.ClientOptions) (Client,
 		return event
 	})
 	return &client{
-		client: newClient,
+		client:        newClient,
+		excludeErrors: excludeErrors,
 	}, nil
 }
 
 type client struct {
-	client *sentry.Client
+	client        *sentry.Client
+	excludeErrors ExcludeErrors
 }
 
 func (c *client) Flush(timeout stdtime.Duration) bool {
@@ -60,9 +62,18 @@ func (c *client) CaptureMessage(message string, hint *sentry.EventHint, scope se
 }
 
 func (c *client) CaptureException(err error, hint *sentry.EventHint, scope sentry.EventModifier) *sentry.EventID {
-	if errors.Is(err, context.Canceled) || errors.Is(err, context.DeadlineExceeded) {
-		glog.V(2).Infof("skip error: %v", err)
+	if c.excludeErrors.IsExcluded(err) {
+		glog.V(4).Infof("capture error %v is excluded => skip", err)
 		return nil
+	}
+	if scope == nil {
+		scope = sentry.NewScope()
+	}
+	if hint == nil {
+		hint = &sentry.EventHint{}
+	}
+	if hint.OriginalException == nil {
+		hint.OriginalException = err
 	}
 	eventID := c.client.CaptureException(err, hint, scope)
 	glog.V(2).Infof("capture sentry execption with id %s: %v", *eventID, err)
