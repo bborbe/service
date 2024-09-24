@@ -84,7 +84,7 @@ func argsToValues(ctx context.Context, data interface{}, args []string) (map[str
 			if found {
 				defaultValue, _ := libtime.ParseDuration(ctx, defaultString)
 				if defaultValue != nil {
-					values[tf.Name] = defaultValue
+					values[tf.Name] = defaultValue.Duration()
 				}
 			}
 			flag.CommandLine.Func(argName, usage, func(value string) error {
@@ -95,7 +95,7 @@ func argsToValues(ctx context.Context, data interface{}, args []string) (map[str
 				if err != nil {
 					return errors.Wrapf(ctx, err, "parse duration failed")
 				}
-				values[tf.Name] = duration
+				values[tf.Name] = duration.Duration()
 				return nil
 			})
 		default:

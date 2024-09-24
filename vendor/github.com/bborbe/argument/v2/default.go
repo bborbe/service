@@ -76,7 +76,7 @@ func DefaultValues(ctx context.Context, data interface{}) (map[string]interface{
 			if err != nil {
 				return nil, errors.Errorf(ctx, "parse field %s as %T failed: %v", tf.Name, ef.Interface(), err)
 			}
-			values[tf.Name] = *duration
+			values[tf.Name] = duration.Duration()
 		default:
 			return nil, errors.Errorf(ctx, "field %s with type %T is unsupported", tf.Name, ef.Interface())
 		}

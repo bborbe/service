@@ -6,6 +6,7 @@ package sentry
 
 import (
 	"context"
+	"fmt"
 	"io"
 	stdtime "time"
 
@@ -35,6 +36,19 @@ func NewClient(ctx context.Context, clientOptions sentry.ClientOptions, excludeE
 		}
 		if hint.OriginalException != nil {
 			for k, v := range errors.DataFromError(hint.OriginalException) {
+				event.Tags[k] = v
+			}
+		}
+		switch data := hint.Data.(type) {
+		case map[string]interface{}:
+			for k, v := range data {
+				if v == nil {
+					continue
+				}
+				event.Tags[k] = fmt.Sprintf("%v", v)
+			}
+		case map[string]string:
+			for k, v := range data {
 				event.Tags[k] = v
 			}
 		}

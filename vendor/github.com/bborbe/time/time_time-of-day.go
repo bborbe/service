@@ -11,17 +11,30 @@ import (
 	stdtime "time"
 
 	"github.com/bborbe/errors"
+	"github.com/bborbe/parse"
 )
 
 const TimeOfDayLayout = "15:04:05.999999999Z07:00"
 
-func ParseTimeOfDay(ctx context.Context, value string) (*TimeOfDay, error) {
+func ParseTimeOfDayDefault(ctx context.Context, value interface{}, defaultValue TimeOfDay) TimeOfDay {
+	result, err := ParseTimeOfDay(ctx, value)
+	if err != nil {
+		return defaultValue
+	}
+	return *result
+}
+
+func ParseTimeOfDay(ctx context.Context, value interface{}) (*TimeOfDay, error) {
+	str, err := parse.ParseString(ctx, value)
+	if err != nil {
+		return nil, errors.Wrapf(ctx, err, "parse value failed")
+	}
 	const nowConst = "NOW"
-	if strings.HasPrefix(value, nowConst) {
+	if strings.HasPrefix(str, nowConst) {
 		now := Now()
 		return TimeOfDayFromTime(now).Ptr(), nil
 	}
-	if parts := strings.Split(value, " "); len(parts) == 2 {
+	if parts := strings.Split(str, " "); len(parts) == 2 {
 		location, err := stdtime.LoadLocation(parts[1])
 		if err != nil {
 			return nil, errors.Wrapf(ctx, err, "load location '%s' failed", parts[1])
@@ -34,7 +47,6 @@ func ParseTimeOfDay(ctx context.Context, value string) (*TimeOfDay, error) {
 		return timeOfDay, nil
 	}
 
-	var err error
 	var t stdtime.Time
 	for _, layout := range []string{
 		"15:04:05.999999999Z07:00",
@@ -45,7 +57,7 @@ func ParseTimeOfDay(ctx context.Context, value string) (*TimeOfDay, error) {
 		stdtime.RFC3339,
 		stdtime.DateTime,
 	} {
-		t, err = stdtime.Parse(layout, value)
+		t, err = stdtime.Parse(layout, str)
 		if err == nil {
 			return TimeOfDayFromTime(t).Ptr(), nil
 		}
@@ -79,9 +91,17 @@ func (t TimeOfDay) Format(layout string) string {
 	return t.date(1970, stdtime.January, 1).Format(layout)
 }
 
+func (t TimeOfDay) DateTime(year int, month stdtime.Month, day int) DateTime {
+	return DateTime(t.date(year, month, day))
+}
+
+func (t TimeOfDay) Time(year int, month stdtime.Month, day int) stdtime.Time {
+	return t.date(year, month, day)
+}
+
 func (t TimeOfDay) Date(year int, month stdtime.Month, day int) (*stdtime.Time, error) {
-	date := t.date(year, month, day)
-	return &date, nil
+	time := t.date(year, month, day)
+	return &time, nil
 }
 
 func (t TimeOfDay) date(year int, month stdtime.Month, day int) stdtime.Time {
@@ -104,4 +124,16 @@ func (t TimeOfDay) MarshalJSON() ([]byte, error) {
 
 func (t TimeOfDay) Ptr() *TimeOfDay {
 	return &t
+}
+
+func (t TimeOfDay) Before(stdTime TimeOfDay) bool {
+	return t.Time(2024, 07, 01).Before(stdTime.Time(2024, 07, 01))
+}
+
+func (t TimeOfDay) After(stdTime TimeOfDay) bool {
+	return t.Time(2024, 07, 01).After(stdTime.Time(2024, 07, 01))
+}
+
+func (t TimeOfDay) Equal(stdTime TimeOfDay) bool {
+	return t.Time(2024, 07, 01).Equal(stdTime.Time(2024, 07, 01))
 }
