@@ -16,6 +16,14 @@ import (
 	"github.com/bborbe/validation"
 )
 
+func DateTimeFromBinary(ctx context.Context, value []byte) (*DateTime, error) {
+	var t stdtime.Time
+	if err := t.UnmarshalBinary(value); err != nil {
+		return nil, errors.Wrapf(ctx, err, "unmarshalBinary failed")
+	}
+	return DateTime(t).Ptr(), nil
+}
+
 func ParseDateTimeDefault(ctx context.Context, value interface{}, defaultValue DateTime) DateTime {
 	result, err := ParseDateTime(ctx, value)
 	if err != nil {
@@ -49,118 +57,151 @@ func DateTimeFromUnixMicro(ms int64) DateTime {
 
 type DateTime stdtime.Time
 
-func (s DateTime) Equal(stdTime DateTime) bool {
-	return s.Time().Equal(stdTime.Time())
+func (d DateTime) Year() int {
+	return d.Time().Year()
 }
 
-func (s *DateTime) EqualPtr(stdTime *DateTime) bool {
-	if s == nil && stdTime == nil {
+func (d DateTime) Month() stdtime.Month {
+	return d.Time().Month()
+}
+
+func (d DateTime) Day() int {
+	return d.Time().Day()
+}
+
+func (d DateTime) Hour() int {
+	return d.Time().Hour()
+}
+
+func (d DateTime) Minute() int {
+	return d.Time().Minute()
+}
+
+func (d DateTime) Second() int {
+	return d.Time().Second()
+}
+
+func (d DateTime) Nanosecond() int {
+	return d.Time().Nanosecond()
+}
+
+func (d DateTime) Equal(stdTime DateTime) bool {
+	return d.Time().Equal(stdTime.Time())
+}
+
+func (d *DateTime) EqualPtr(stdTime *DateTime) bool {
+	if d == nil && stdTime == nil {
 		return true
 	}
-	if s != nil && stdTime != nil {
-		return s.Equal(*stdTime)
+	if d != nil && stdTime != nil {
+		return d.Equal(*stdTime)
 	}
 	return false
 }
 
-func (s DateTime) String() string {
-	return s.Format(stdtime.RFC3339Nano)
+func (d DateTime) String() string {
+	return d.Format(stdtime.RFC3339Nano)
 }
 
-func (s DateTime) Validate(ctx context.Context) error {
-	if s.Time().IsZero() {
+func (d DateTime) Validate(ctx context.Context) error {
+	if d.Time().IsZero() {
 		return errors.Wrapf(ctx, validation.Error, "time is zero")
 	}
 	return nil
 }
 
-func (s DateTime) Ptr() *DateTime {
-	return &s
+func (d DateTime) Ptr() *DateTime {
+	return &d
 }
 
-func (s *DateTime) UnmarshalJSON(b []byte) error {
+func (d *DateTime) UnmarshalJSON(b []byte) error {
 	str := strings.Trim(string(b), `"`)
-	if len(str) == 0 || str == "null" {
-		*s = DateTime(stdtime.Time{})
+	switch str {
+	case "", "null":
+		*d = DateTime(stdtime.Time{})
+		return nil
+	case "NOW":
+		*d = DateTime(Now())
+		return nil
+	default:
+		t, err := stdtime.ParseInLocation(stdtime.RFC3339Nano, str, stdtime.UTC)
+		if err != nil {
+			return errors.Wrapf(context.Background(), err, "parse in location failed")
+		}
+		*d = DateTime(t)
 		return nil
 	}
-	t, err := stdtime.ParseInLocation(stdtime.RFC3339Nano, str, stdtime.UTC)
-	if err != nil {
-		return errors.Wrapf(context.Background(), err, "parse in location failed")
-	}
-	*s = DateTime(t)
-	return nil
 }
 
-func (s DateTime) MarshalJSON() ([]byte, error) {
-	time := s.Time()
+func (d DateTime) MarshalJSON() ([]byte, error) {
+	time := d.Time()
 	if time.IsZero() {
 		return json.Marshal(nil)
 	}
 	return json.Marshal(time.Format(stdtime.RFC3339Nano))
 }
 
-func (s *DateTime) Time() stdtime.Time {
-	return stdtime.Time(*s)
+func (d *DateTime) Time() stdtime.Time {
+	return stdtime.Time(*d)
 }
 
-func (s *DateTime) TimePtr() *stdtime.Time {
-	t := stdtime.Time(*s)
+func (d *DateTime) TimePtr() *stdtime.Time {
+	t := stdtime.Time(*d)
 	return &t
 }
 
-func (s DateTime) Format(layout string) string {
-	return s.Time().Format(layout)
+func (d DateTime) Format(layout string) string {
+	return d.Time().Format(layout)
 }
 
-func (s DateTime) MarshalBinary() ([]byte, error) {
-	return s.Time().MarshalBinary()
+func (d DateTime) MarshalBinary() ([]byte, error) {
+	return d.Time().MarshalBinary()
 }
 
-func (s DateTime) Clone() DateTime {
-	return s
+func (d DateTime) Clone() DateTime {
+	return d
 }
 
-func (s *DateTime) ClonePtr() *DateTime {
-	if s == nil {
+func (d *DateTime) ClonePtr() *DateTime {
+	if d == nil {
 		return nil
 	}
-	return s.Clone().Ptr()
+	return d.Clone().Ptr()
 }
 
-func (s DateTime) UnixMicro() int64 {
-	return s.Time().UnixMicro()
+func (d DateTime) UnixMicro() int64 {
+	return d.Time().UnixMicro()
 }
 
-func (s DateTime) Unix() int64 {
-	return s.Time().Unix()
+func (d DateTime) Unix() int64 {
+	return d.Time().Unix()
 }
 
-func (s DateTime) Before(stdTime DateTime) bool {
-	return s.Time().Before(stdTime.Time())
+func (d DateTime) Before(stdTime DateTime) bool {
+	return d.Time().Before(stdTime.Time())
 }
 
-func (s DateTime) After(stdTime DateTime) bool {
-	return s.Time().After(stdTime.Time())
+func (d DateTime) After(stdTime DateTime) bool {
+	return d.Time().After(stdTime.Time())
 }
 
-func (s DateTime) Add(duration stdtime.Duration) DateTime {
-	return DateTime(s.Time().Add(duration))
+func (d DateTime) Add(duration stdtime.Duration) DateTime {
+	return DateTime(d.Time().Add(duration))
 }
 
-func (s DateTime) Compare(stdTime DateTime) int {
-	return Compare(s.Time(), stdTime.Time())
+func (d DateTime) Compare(stdTime DateTime) int {
+	return Compare(d.Time(), stdTime.Time())
 }
 
-func (s *DateTime) ComparePtr(stdTime *DateTime) int {
-	if s == nil && stdTime == nil {
+func (d *DateTime) ComparePtr(stdTime *DateTime) int {
+	if d == nil && stdTime == nil {
 		return 0
 	}
-	if s == nil {
+	if d == nil {
 		return -1
 	}
 	if stdTime == nil {
 		return 1
 	}
-	return s.Compare(*stdTime)
+	return d.Compare(*stdTime)
 }

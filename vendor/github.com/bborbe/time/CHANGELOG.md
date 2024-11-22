@@ -8,6 +8,34 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.8.0
+
+- allow unmarshal NOW
+- go mod update
+
+## v1.7.4
+
+- add parse time without seconds
+- go mod update
+
+## v1.7.3
+
+- Add MarshalBinary and UnmarshalBinary
+- go mod update
+
+## v1.7.2
+
+- add Date.Add() and UnixTime.Add()
+
+## v1.7.1
+
+- add Year(), Month(), Day(), Hour(), Minute(), Second() and Nanosecond()
+
+## v1.7.0
+
+- add ParseUnixTime
+- go mod update
+
 ## v1.6.2
 
 - add Before, After and Equal to TimeOfDay
@@ -25,7 +53,7 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 
 ## v1.5.2
 
-- remove error from DateTime 
+- remove error from DateTime
 - add Time
 
 ## v1.5.1

@@ -43,6 +43,7 @@ func ParseTime(ctx context.Context, value interface{}) (*stdtime.Time, error) {
 	for _, layout := range []string{
 		stdtime.RFC3339Nano,
 		stdtime.RFC3339,
+		"2006-01-02T15:04Z07:00",
 		stdtime.DateTime,
 		stdtime.DateOnly,
 	} {

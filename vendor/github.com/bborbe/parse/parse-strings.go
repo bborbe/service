@@ -17,15 +17,17 @@ func ParseStrings(ctx context.Context, value interface{}) ([]string, error) {
 	case []string:
 		return v, nil
 	case []interface{}:
-		result := make([]string, len(v))
-		for i, a := range v {
-			str, err := ParseString(ctx, a)
-			if err != nil {
-				return nil, err
-			}
-			result[i] = str
-		}
-		return result, nil
+		return toStringList(ctx, v)
+	case []float64:
+		return toStringList(ctx, v)
+	case []bool:
+		return toStringList(ctx, v)
+	case []int:
+		return toStringList(ctx, v)
+	case []int32:
+		return toStringList(ctx, v)
+	case []int64:
+		return toStringList(ctx, v)
 	case string:
 		str, err := ParseString(ctx, v)
 		if err != nil {
@@ -35,6 +37,18 @@ func ParseStrings(ctx context.Context, value interface{}) ([]string, error) {
 	default:
 		return nil, errors.Errorf(ctx, "unsupported type %T", value)
 	}
+}
+
+func toStringList[T any](ctx context.Context, input []T) ([]string, error) {
+	result := make([]string, len(input))
+	for i, a := range input {
+		str, err := ParseString(ctx, a)
+		if err != nil {
+			return nil, err
+		}
+		result[i] = str
+	}
+	return result, nil
 }
 
 func ParseStringsDefault(ctx context.Context, value interface{}, defaultValue []string) []string {
