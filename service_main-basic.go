@@ -27,7 +27,7 @@ func MainBasic(
 	time.Local = time.UTC
 	glog.V(2).Infof("set global timezone to UTC")
 
-	if err := argument.Parse(ctx, app); err != nil {
+	if err := argument.ParseAndPrint(ctx, app); err != nil {
 		glog.Errorf("parse app failed: %v", err)
 		return 4
 	}
