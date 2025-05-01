@@ -15,7 +15,8 @@ import (
 	"github.com/golang/glog"
 )
 
-func MainBasic(
+// MainCmd has no sentry and don't print anything
+func MainCmd(
 	ctx context.Context,
 	app run.Func,
 ) int {
@@ -27,16 +28,16 @@ func MainBasic(
 	time.Local = time.UTC
 	glog.V(2).Infof("set global timezone to UTC")
 
-	if err := argument.ParseAndPrint(ctx, app); err != nil {
+	if err := argument.Parse(ctx, app); err != nil {
 		glog.Errorf("parse app failed: %v", err)
 		return 4
 	}
 
-	glog.V(0).Infof("application started")
+	glog.V(3).Infof("application started")
 	if err := app.Run(run.ContextWithSig(ctx)); err != nil {
 		glog.Error(err)
 		return 1
 	}
-	glog.V(0).Infof("application finished")
+	glog.V(3).Infof("application finished")
 	return 0
 }
