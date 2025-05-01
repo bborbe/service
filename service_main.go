@@ -8,13 +8,11 @@ import (
 	"context"
 	"flag"
 	"net/http"
-	"os"
-	"os/signal"
 	"runtime"
-	"syscall"
 	"time"
 
 	"github.com/bborbe/argument/v2"
+	"github.com/bborbe/run"
 	libsentry "github.com/bborbe/sentry"
 	"github.com/getsentry/sentry-go"
 	"github.com/golang/glog"
@@ -40,7 +38,7 @@ func Main(
 	time.Local = time.UTC
 	glog.V(2).Infof("set global timezone to UTC")
 
-	if err := argument.Parse(ctx, app); err != nil {
+	if err := argument.ParseAndPrint(ctx, app); err != nil {
 		glog.Errorf("parse app failed: %v", err)
 		return 4
 	}
@@ -83,34 +81,10 @@ func Main(
 	)
 
 	glog.V(0).Infof("application started")
-	if err := service.Run(contextWithSig(ctx)); err != nil {
+	if err := service.Run(run.ContextWithSig(ctx)); err != nil {
 		glog.Error(err)
 		return 1
 	}
 	glog.V(0).Infof("application finished")
 	return 0
-}
-
-func contextWithSig(ctx context.Context) context.Context {
-	ctxWithCancel, cancel := context.WithCancel(ctx)
-	go func() {
-		defer cancel()
-
-		signalCh := make(chan os.Signal, 1)
-		defer close(signalCh)
-
-		signal.Notify(signalCh, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
-
-		select {
-		case signal, ok := <-signalCh:
-			if !ok {
-				glog.V(2).Infof("signal channel closed => cancel context ")
-				return
-			}
-			glog.V(2).Infof("got signal %s => cancel context ", signal)
-		case <-ctx.Done():
-		}
-	}()
-
-	return ctxWithCancel
 }
