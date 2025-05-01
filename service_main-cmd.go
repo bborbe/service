@@ -18,7 +18,7 @@ import (
 // MainCmd has no sentry and don't print anything
 func MainCmd(
 	ctx context.Context,
-	app run.Func,
+	app run.Runnable,
 ) int {
 	defer glog.Flush()
 	glog.CopyStandardLogTo("info")
