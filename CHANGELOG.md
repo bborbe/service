@@ -8,6 +8,11 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.6.4
+
+- update README with comprehensive description and features
+- improve documentation with quick start guide
+
 ## v1.6.3
 
 - add example service main
