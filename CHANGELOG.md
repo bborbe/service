@@ -8,6 +8,17 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.8.0
+
+- add comprehensive test coverage (0% → 32.4% with 37 passing tests)
+- add tests for Run(), FilterErrors(), NewOptions(), and Service interface
+- expand README documentation (31 → 309 lines) with installation, examples, and API docs
+- add badges to README (Go Reference, CI, Go Report Card)
+- enable race detection in test target
+- update glog dependency to fix security vulnerability
+- add golang.org/x/tools v0.38.0 exclude for counterfeiter compatibility
+- update golang.org/x/tools from v0.38.0 to v0.37.0
+
 ## v1.7.1
 
 - fix counterfeiter directive placement to exclude from GoDoc output
