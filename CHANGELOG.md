@@ -8,6 +8,20 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.7.0
+
+- add complete GoDoc documentation for all exported items
+- add package-level documentation (doc.go)
+- add Ginkgo CLI tool to tools.go for consistent test execution
+- remove deprecated golang.org/x/lint/golint from tools.go
+- fix error wrapping (errors.Wrapf → errors.Wrap when no formatting arguments)
+- update copyright years to match git history (2024-2025 year ranges)
+- update LICENSE file to 2024-2025 year range
+- update CI workflow Go version from 1.25.2 to 1.25.3
+- add license section to README.md
+- fix example code linter issues (createHttpServer → createHTTPServer, simplify select statement)
+- remove legacy // +build comment from tools.go
+
 ## v1.6.4
 
 - update README with comprehensive description and features

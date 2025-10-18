@@ -1,4 +1,4 @@
-// Copyright (c) 2023 Benjamin Borbe All rights reserved.
+// Copyright (c) 2024-2025 Benjamin Borbe All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -18,11 +18,19 @@ import (
 	"github.com/golang/glog"
 )
 
+// Application defines the contract for services that can be executed with Sentry integration.
+// Implementations receive a configured Sentry client for error reporting and should implement
+// the Run method to contain the application's business logic.
+//
 //counterfeiter:generate -o mocks/service-application.go --fake-name ServiceApplication . Application
 type Application interface {
 	Run(ctx context.Context, sentryClient libsentry.Client) error
 }
 
+// Main initializes and runs the service application with Sentry integration.
+// It handles argument parsing, timezone configuration (UTC), Sentry setup, signal handling,
+// and graceful shutdown. Returns an exit code: 0 for success, 1 for runtime error,
+// 2 for Sentry setup failure, 3 for missing Sentry DSN, 4 for argument parsing failure.
 func Main(
 	ctx context.Context,
 	app Application,

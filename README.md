@@ -23,3 +23,9 @@ func main() {
 ```
 
 See the [example directory](example/) for a complete implementation.
+
+## License
+
+Copyright (c) 2024-2025 Benjamin Borbe
+
+This project is licensed under the BSD-2-Clause License - see the [LICENSE](LICENSE) file for details.

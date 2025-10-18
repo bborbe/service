@@ -1,4 +1,4 @@
-// Copyright (c) 2023 Benjamin Borbe All rights reserved.
+// Copyright (c) 2025 Benjamin Borbe All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -15,7 +15,10 @@ import (
 	"github.com/golang/glog"
 )
 
-// MainCmd has no sentry and don't print anything
+// MainCmd initializes and runs a command-line application without Sentry integration.
+// Unlike Main, this function is designed for CLI tools that do not require error reporting
+// to Sentry and uses reduced logging verbosity (V(3) instead of V(0)). Returns an exit code:
+// 0 for success, 1 for runtime error, 4 for argument parsing failure.
 func MainCmd(
 	ctx context.Context,
 	app run.Runnable,

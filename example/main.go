@@ -1,4 +1,4 @@
-// Copyright (c) 2023 Benjamin Borbe All rights reserved.
+// Copyright (c) 2025 Benjamin Borbe All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -24,30 +24,28 @@ func main() {
 }
 
 type application struct {
-	SentryDSN   string `required:"true" arg:"sentry-dsn" env:"SENTRY_DSN" usage:"SentryDSN" display:"length"`
+	SentryDSN   string `required:"true"  arg:"sentry-dsn"   env:"SENTRY_DSN"   usage:"SentryDSN"            display:"length"`
 	SentryProxy string `required:"false" arg:"sentry-proxy" env:"SENTRY_PROXY" usage:"Sentry Proxy"`
-	Listen      string `required:"true" arg:"listen" env:"LISTEN" usage:"address to listen to"`
+	Listen      string `required:"true"  arg:"listen"       env:"LISTEN"       usage:"address to listen to"`
 }
 
 func (a *application) Run(ctx context.Context, sentryClient libsentry.Client) error {
 	return service.Run(
 		ctx,
 		a.createMyFunc(),
-		a.createHttpServer(),
+		a.createHTTPServer(),
 	)
 }
 
 func (a *application) createMyFunc() run.Func {
 	return func(ctx context.Context) error {
-		// to something
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-		}
+		// do something here
+		<-ctx.Done()
+		return ctx.Err()
 	}
 }
 
-func (a *application) createHttpServer() run.Func {
+func (a *application) createHTTPServer() run.Func {
 	return func(ctx context.Context) error {
 		ctx, cancel := context.WithCancel(ctx)
 		defer cancel()
