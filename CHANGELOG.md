@@ -8,6 +8,12 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.8.1
+
+- fix data race in service_run_test.go by adding mutex synchronization
+- update dependencies (argument v2.8.0, collection v1.14.0, validation v1.3.3, bbolt v1.4.3)
+- remove unused actgardner/gogen-avro dependency
+
 ## v1.8.0
 
 - add comprehensive test coverage (0% → 32.4% with 37 passing tests)

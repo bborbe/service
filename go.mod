@@ -3,7 +3,7 @@ module github.com/bborbe/service
 go 1.25.3
 
 require (
-	github.com/bborbe/argument/v2 v2.7.0
+	github.com/bborbe/argument/v2 v2.8.0
 	github.com/bborbe/errors v1.3.1
 	github.com/bborbe/http v1.17.0
 	github.com/bborbe/run v1.8.1
@@ -57,7 +57,6 @@ require (
 	github.com/Microsoft/hcsshim v0.13.0 // indirect
 	github.com/OpenPeeDeeP/depguard/v2 v2.2.1 // indirect
 	github.com/ProtonMail/go-crypto v1.3.0 // indirect
-	github.com/actgardner/gogen-avro/v9 v9.2.0 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/alecthomas/chroma/v2 v2.20.0 // indirect
 	github.com/alecthomas/go-check-sumtype v0.3.1 // indirect
@@ -74,13 +73,13 @@ require (
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
-	github.com/bborbe/collection v1.10.2 // indirect
+	github.com/bborbe/collection v1.14.0 // indirect
 	github.com/bborbe/kv v1.16.0 // indirect
 	github.com/bborbe/log v1.4.2 // indirect
 	github.com/bborbe/math v1.2.1 // indirect
 	github.com/bborbe/parse v1.8.3 // indirect
 	github.com/bborbe/time v1.20.0 // indirect
-	github.com/bborbe/validation v1.3.1 // indirect
+	github.com/bborbe/validation v1.3.3 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bkielbasa/cyclop v1.2.3 // indirect
 	github.com/blizzy78/varnamelen v0.8.0 // indirect
@@ -354,7 +353,7 @@ require (
 	gitlab.com/bosi/decorder v0.4.2 // indirect
 	go-simpler.org/musttag v0.13.0 // indirect
 	go-simpler.org/sloglint v0.9.0 // indirect
-	go.etcd.io/bbolt v1.4.2 // indirect
+	go.etcd.io/bbolt v1.4.3 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.63.0 // indirect
@@ -368,7 +367,7 @@ require (
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/crypto v0.43.0 // indirect
-	golang.org/x/exp v0.0.0-20251002181428-27f1f14c8bb9 // indirect
+	golang.org/x/exp v0.0.0-20251009144603-d2f985daa21b // indirect
 	golang.org/x/exp/typeparams v0.0.0-20250210185358-939b2ce775ac // indirect
 	golang.org/x/lint v0.0.0-20241112194109-818c5a804067 // indirect
 	golang.org/x/mod v0.29.0 // indirect
@@ -403,4 +402,6 @@ require (
 	www.velocidex.com/golang/regparser v0.0.0-20250203141505-31e704a67ef7 // indirect
 )
 
-exclude golang.org/x/tools v0.38.0
+exclude (
+	golang.org/x/tools v0.38.0
+)

@@ -7,6 +7,7 @@ package service_test
 import (
 	"context"
 	"errors"
+	"sync"
 	"time"
 
 	. "github.com/onsi/ginkgo/v2"
@@ -31,16 +32,21 @@ var _ = Describe("Run", func() {
 
 	Context("with successful functions", func() {
 		It("runs all functions and returns nil when context is canceled", func() {
+			var mu sync.Mutex
 			executed := make(map[string]bool)
 
 			fn1 := func(ctx context.Context) error {
+				mu.Lock()
 				executed["fn1"] = true
+				mu.Unlock()
 				<-ctx.Done()
 				return ctx.Err()
 			}
 
 			fn2 := func(ctx context.Context) error {
+				mu.Lock()
 				executed["fn2"] = true
+				mu.Unlock()
 				<-ctx.Done()
 				return ctx.Err()
 			}
@@ -53,6 +59,8 @@ var _ = Describe("Run", func() {
 			err := service.Run(ctx, fn1, fn2)
 
 			Expect(err).To(BeNil())
+			mu.Lock()
+			defer mu.Unlock()
 			Expect(executed["fn1"]).To(BeTrue())
 			Expect(executed["fn2"]).To(BeTrue())
 		})
