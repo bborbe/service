@@ -18,11 +18,11 @@ import (
 	"github.com/golang/glog"
 )
 
+//counterfeiter:generate -o mocks/service-application.go --fake-name ServiceApplication . Application
+
 // Application defines the contract for services that can be executed with Sentry integration.
 // Implementations receive a configured Sentry client for error reporting and should implement
 // the Run method to contain the application's business logic.
-//
-//counterfeiter:generate -o mocks/service-application.go --fake-name ServiceApplication . Application
 type Application interface {
 	Run(ctx context.Context, sentryClient libsentry.Client) error
 }

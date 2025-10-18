@@ -13,11 +13,11 @@ import (
 	"github.com/golang/glog"
 )
 
+//counterfeiter:generate -o mocks/service.go --fake-name Service . Service
+
 // Service wraps application execution with Sentry error reporting and structured logging.
 // It provides a layer between the main entry point and the application logic, handling
 // error capture and reporting to Sentry automatically.
-//
-//counterfeiter:generate -o mocks/service.go --fake-name Service . Service
 type Service interface {
 	Run(ctx context.Context) error
 }
