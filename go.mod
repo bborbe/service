@@ -3,7 +3,7 @@ module github.com/bborbe/service
 go 1.25.3
 
 require (
-	github.com/bborbe/argument/v2 v2.8.0
+	github.com/bborbe/argument/v2 v2.10.0
 	github.com/bborbe/errors v1.3.1
 	github.com/bborbe/http v1.17.0
 	github.com/bborbe/run v1.8.1
@@ -402,6 +402,4 @@ require (
 	www.velocidex.com/golang/regparser v0.0.0-20250203141505-31e704a67ef7 // indirect
 )
 
-exclude (
-	golang.org/x/tools v0.38.0
-)
+exclude golang.org/x/tools v0.38.0

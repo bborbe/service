@@ -106,8 +106,8 @@ github.com/aymanbagabas/go-udiff v0.2.0 h1:TK0fH4MteXUDspT88n8CKzvK0X9O2xu9yQjWp
 github.com/aymanbagabas/go-udiff v0.2.0/go.mod h1:RE4Ex0qsGkTAJoQdQQCA0uG+nAzJO/pI/QwceO5fgrA=
 github.com/aymerick/douceur v0.2.0 h1:Mv+mAeH1Q+n9Fr+oyamOlAkUNPWPlA8PPGR0QAaYuPk=
 github.com/aymerick/douceur v0.2.0/go.mod h1:wlT5vV2O3h55X9m7iVYN0TBM0NH/MmbLnd30/FjWUq4=
-github.com/bborbe/argument/v2 v2.8.0 h1:qtY9Q589qBkt31hw6j5V/3k8Z3LXyCRI43S6+REZOX0=
-github.com/bborbe/argument/v2 v2.8.0/go.mod h1:s1koVHZ5xCOhrC+PTZ33PrMPYSp2JePY4xdQGT1u86A=
+github.com/bborbe/argument/v2 v2.10.0 h1:lloGp7CIcQyaWBpOv4u91VsZtoA/yceVcIDPKe0oO2g=
+github.com/bborbe/argument/v2 v2.10.0/go.mod h1:s1koVHZ5xCOhrC+PTZ33PrMPYSp2JePY4xdQGT1u86A=
 github.com/bborbe/collection v1.14.0 h1:Ty/pJ+Spj9G11fAvdXoimB05IyDelP0FlA+ar7vhjWc=
 github.com/bborbe/collection v1.14.0/go.mod h1:yVCNqLhVtOAhMMGHgPlAJNYe55HbnQwVGUkbxVce1E4=
 github.com/bborbe/errors v1.3.1 h1:E6vU5Wys8mX7UsAG22TNrkPC6VMsQoEF+q9XS3DiUD8=
