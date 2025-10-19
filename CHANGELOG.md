@@ -8,6 +8,10 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.8.2
+
+- go mod update
+
 ## v1.8.1
 
 - fix data race in service_run_test.go by adding mutex synchronization
