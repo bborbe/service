@@ -8,6 +8,13 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.9.2
+
+- Update Go to 1.25.6
+- Update dependencies including sentry-go v0.42.0, osv-scanner v2.3.2, ginkgo v2.28.1, gomega v1.39.1
+- Update various indirect dependencies and build tools
+- Add .update-logs/ and .mcp-* to .gitignore
+
 ## v1.9.1
 
 - Update Go to 1.25.5
