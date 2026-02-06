@@ -8,6 +8,14 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.9.2
+
+- Update Go to 1.25.7
+- Update sentry-go to 0.42.0
+- Update bborbe dependencies (argument, errors, http, sentry)
+- Update test frameworks (ginkgo v2.28.1, gomega v1.39.1)
+- Update CI workflow to Go 1.25.7
+
 ## v1.9.1
 
 - Update Go to 1.25.5
