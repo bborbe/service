@@ -1,7 +1,12 @@
 ---
-status: approved
-created: "2026-03-20T12:58:06Z"
-queued: "2026-03-20T12:58:06Z"
+status: completed
+summary: All tests, linting, and precommit checks pass with exit code 0; added Unreleased section to CHANGELOG.md.
+container: service-001-fix-tests-and-dod
+dark-factory-version: v0.59.5-dirty
+created: "2026-03-20T18:54:44Z"
+queued: "2026-03-20T18:54:44Z"
+started: "2026-03-20T18:54:55Z"
+completed: "2026-03-20T19:01:18Z"
 ---
 
 <summary>
