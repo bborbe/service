@@ -1,7 +1,11 @@
 ---
 status: approved
-created: "2026-03-20T14:24:31Z"
-queued: "2026-03-20T14:24:31Z"
+container: service-001-fix-tests-and-dod
+dark-factory-version: v0.59.5-dirty
+created: "2026-03-20T12:58:06Z"
+queued: "2026-03-20T12:58:06Z"
+started: "2026-03-20T16:24:39Z"
+completed: "2026-03-20T16:49:41Z"
 ---
 
 <summary>

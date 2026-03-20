@@ -8,6 +8,10 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.9.6
+
+- chore: verify project health — all tests pass, linting clean, precommit succeeds
+
 ## v1.9.5
 
 - upgrade golangci-lint from v1 to v2
