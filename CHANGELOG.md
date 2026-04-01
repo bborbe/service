@@ -8,6 +8,12 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.9.8
+
+- Update indirect dependencies (golangci-lint, moby/buildkit, containerd, docker, etc.)
+- Remove obsolete exclude directives from go.mod
+- Update replace directives (charmbracelet, ginkgolinter, opencontainers)
+
 ## v1.9.7
 
 - fix: upgrade osv-scanner to v2.3.5 to fix containerd/Go 1.26 compile error in CI
