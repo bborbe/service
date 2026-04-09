@@ -8,6 +8,14 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.9.9
+
+- update Go to 1.26.2
+- bump bborbe/* and getsentry/sentry-go dependencies
+- add vulnerability ignores for bbolt and aws-sdk CVEs
+- improve vulncheck to filter known unresolvable findings
+- remove -race flag from test target
+
 ## v1.9.8
 
 - Update indirect dependencies (golangci-lint, moby/buildkit, containerd, docker, etc.)
