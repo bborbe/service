@@ -1,11 +1,12 @@
 ---
-status: committing
+status: completed
 summary: 'Migrated from tools.go to tools.env + Makefile @version pattern: deleted tools.go, created tools.env with 11 canonical tool versions, updated Makefile to use go run pkg@$(VERSION) for all third-party tools, updated //go:generate counterfeiter directive to @v6.12.2, removed replace block from go.mod, cleaned up dead CVE suppressions in .osv-scanner.toml and vulncheck jq filters, make precommit passes with exit code 0.'
 container: service-002-migrate-tools-go
 dark-factory-version: dev
 created: "2026-04-30T21:05:44Z"
 queued: "2026-04-30T21:05:44Z"
 started: "2026-04-30T21:05:45Z"
+completed: "2026-04-30T21:13:52Z"
 ---
 
 # Migrate from tools.go to tools.env + Makefile @version pattern
