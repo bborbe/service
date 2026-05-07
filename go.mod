@@ -1,14 +1,14 @@
 module github.com/bborbe/service
 
-go 1.26.2
+go 1.26.3
 
 require (
 	github.com/bborbe/argument/v2 v2.12.21
-	github.com/bborbe/errors v1.5.11
+	github.com/bborbe/errors v1.5.13
 	github.com/bborbe/http v1.26.11
-	github.com/bborbe/run v1.9.23
-	github.com/bborbe/sentry v1.9.16
-	github.com/getsentry/sentry-go v0.46.1
+	github.com/bborbe/run v1.9.24
+	github.com/bborbe/sentry v1.9.17
+	github.com/getsentry/sentry-go v0.46.2
 	github.com/golang/glog v1.2.5
 	github.com/gorilla/mux v1.8.1
 	github.com/onsi/ginkgo/v2 v2.28.3
@@ -402,9 +402,9 @@ require (
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.63.0 // indirect
-	go.opentelemetry.io/otel v1.40.0 // indirect
-	go.opentelemetry.io/otel/metric v1.40.0 // indirect
-	go.opentelemetry.io/otel/trace v1.40.0 // indirect
+	go.opentelemetry.io/otel v1.43.0 // indirect
+	go.opentelemetry.io/otel/metric v1.43.0 // indirect
+	go.opentelemetry.io/otel/trace v1.43.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect

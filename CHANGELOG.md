@@ -8,6 +8,14 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.9.11
+
+- bump go 1.26.3
+- bump bborbe/errors v1.5.13
+- bump bborbe/run v1.9.24
+- bump bborbe/sentry v1.9.17
+- bump getsentry/sentry-go v0.46.2, otel v1.43.0
+
 ## v1.9.10
 
 - chore: Migrate to tools.env + Makefile @version pattern; remove tools.go and obsolete replace block. go.mod direct deps reduced to library-only requires.
