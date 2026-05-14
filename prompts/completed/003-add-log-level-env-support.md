@@ -1,11 +1,12 @@
 ---
-status: committing
+status: completed
 summary: Added LOG_LEVEL environment variable handler to service_main.go and updated CHANGELOG.md with feat entry under Unreleased section.
 container: service-003-add-log-level-env-support
 dark-factory-version: v0.156.1-1-g04f3863-dirty
 created: "2026-05-14T09:22:10Z"
 queued: "2026-05-14T09:22:10Z"
 started: "2026-05-14T09:27:30Z"
+completed: "2026-05-14T09:28:39Z"
 ---
 
 <summary>
