@@ -8,6 +8,7 @@ import (
 	"context"
 	"flag"
 	"net/http"
+	"os"
 	"runtime"
 	"time"
 
@@ -42,6 +43,10 @@ func Main(
 	glog.CopyStandardLogTo("info")
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	_ = flag.Set("logtostderr", "true")
+
+	if logLevel := os.Getenv("LOG_LEVEL"); logLevel != "" {
+		_ = flag.Set("v", logLevel)
+	}
 
 	time.Local = time.UTC
 	glog.V(2).Infof("set global timezone to UTC")

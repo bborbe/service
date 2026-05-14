@@ -8,6 +8,10 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.10.0
+
+- feat: `LOG_LEVEL` environment variable sets glog verbosity at runtime — equivalent to passing `-v=N` on the command line, but settable via K8s Config / docker `-e LOG_LEVEL=4` without rebuilding the image's `ENTRYPOINT -v=N` flag
+
 ## v1.9.12
 
 - Update bborbe/argument/v2 to v2.12.22
