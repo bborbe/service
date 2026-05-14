@@ -8,6 +8,13 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.9.12
+
+- Update bborbe/argument/v2 to v2.12.22
+- Update bborbe/http to v1.26.12
+- Update indirect bborbe deps (collection, kv, log, math, time)
+- Clean up go.mod indirect dependencies
+
 ## v1.9.11
 
 - bump go 1.26.3
