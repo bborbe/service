@@ -8,6 +8,14 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.10.1
+
+- update Go to 1.26.4
+- bump bborbe/* and prometheus/* dependencies
+- upgrade golang.org/x/* packages (net, sys, text, tools, mod)
+- move errcheck/gosec config inline to .golangci.yml; drop standalone targets
+- add .maintainer.yaml for autoRelease/autoApprove
+
 ## v1.10.0
 
 - feat: `LOG_LEVEL` environment variable sets glog verbosity at runtime — equivalent to passing `-v=N` on the command line, but settable via K8s Config / docker `-e LOG_LEVEL=4` without rebuilding the image's `ENTRYPOINT -v=N` flag
