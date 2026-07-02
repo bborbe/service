@@ -8,6 +8,13 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.10.2
+
+- Update github.com/bborbe/http to v1.26.13
+- Update getsentry/sentry-go to v0.47.0
+- Update onsi/ginkgo to v2.32.0 and onsi/gomega to v1.42.1
+- Bump indirect dependencies (kv, log, math, time, x/net, x/sync, x/sys, x/text)
+
 ## v1.10.1
 
 - update Go to 1.26.4
