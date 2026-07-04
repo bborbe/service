@@ -6,7 +6,7 @@ require (
 	github.com/bborbe/argument/v2 v2.12.29
 	github.com/bborbe/errors v1.5.15
 	github.com/bborbe/http v1.26.13
-	github.com/bborbe/run v1.9.29
+	github.com/bborbe/run v1.9.30
 	github.com/bborbe/sentry v1.9.20
 	github.com/getsentry/sentry-go v0.47.0
 	github.com/golang/glog v1.2.5
