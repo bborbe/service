@@ -8,6 +8,13 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.10.3
+
+- Bump github.com/bborbe/argument/v2 to v2.12.29
+- Bump github.com/bborbe/errors to v1.5.15
+- Bump github.com/bborbe/run to v1.9.29
+- Bump github.com/bborbe/sentry to v1.9.20
+
 ## v1.10.2
 
 - Update github.com/bborbe/http to v1.26.13

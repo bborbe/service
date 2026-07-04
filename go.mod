@@ -3,11 +3,11 @@ module github.com/bborbe/service
 go 1.26.4
 
 require (
-	github.com/bborbe/argument/v2 v2.12.27
-	github.com/bborbe/errors v1.5.13
+	github.com/bborbe/argument/v2 v2.12.29
+	github.com/bborbe/errors v1.5.15
 	github.com/bborbe/http v1.26.13
-	github.com/bborbe/run v1.9.28
-	github.com/bborbe/sentry v1.9.18
+	github.com/bborbe/run v1.9.29
+	github.com/bborbe/sentry v1.9.20
 	github.com/getsentry/sentry-go v0.47.0
 	github.com/golang/glog v1.2.5
 	github.com/gorilla/mux v1.8.1
