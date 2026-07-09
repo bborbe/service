@@ -8,6 +8,12 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## v1.10.5
+
+- Bump go toolchain to 1.26.5
+- Update bborbe/argument, bborbe/errors, bborbe/http, bborbe/sentry
+- Update transitive bborbe dependencies (collection, kv, log, math, parse, time, validation)
+
 ## v1.10.4
 
 - Bump github.com/bborbe/run to v1.9.30
