@@ -1,6 +1,6 @@
 module github.com/bborbe/service
 
-go 1.27.0
+go 1.27.1
 
 require (
 	github.com/bborbe/argument/v2 v2.13.2
@@ -22,9 +22,9 @@ require (
 	github.com/bborbe/kv v1.21.13 // indirect
 	github.com/bborbe/log v1.6.25 // indirect
 	github.com/bborbe/math v1.4.8 // indirect
-	github.com/bborbe/parse v1.11.1 // indirect
-	github.com/bborbe/time v1.27.12 // indirect
-	github.com/bborbe/validation v1.4.23 // indirect
+	github.com/bborbe/parse v1.11.2 // indirect
+	github.com/bborbe/time v1.27.13 // indirect
+	github.com/bborbe/validation v1.5.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/go-logr/logr v1.4.4 // indirect
