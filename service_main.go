@@ -62,14 +62,7 @@ func Main(
 		glog.Errorf("sentryDSN args missing")
 		return 3
 	}
-	httpTransport := http.DefaultTransport
-	if sentryProxy != nil {
-		httpTransport = libsentry.NewProxyRoundTripper(
-			httpTransport,
-			*sentryProxy,
-		)
-		glog.V(2).Infof("use sentryProxy %s", *sentryProxy)
-	}
+	httpTransport := sentryHTTPTransport(sentryProxy)
 	sentryClient, err := libsentry.NewClient(
 		ctx,
 		sentry.ClientOptions{
@@ -100,4 +93,14 @@ func Main(
 	}
 	glog.V(0).Infof("application finished")
 	return 0
+}
+
+func sentryHTTPTransport(sentryProxy *string) http.RoundTripper {
+	if sentryProxy != nil && *sentryProxy != "" {
+		glog.V(0).Infof("use sentryProxy %s", *sentryProxy)
+		return libsentry.NewProxyRoundTripper(http.DefaultTransport, *sentryProxy)
+	}
+	glog.V(0).
+		Infof("send sentry events direct via http.DefaultTransport (no sentry proxy configured)")
+	return http.DefaultTransport
 }
