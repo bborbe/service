@@ -8,7 +8,7 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
-## Unreleased
+## v1.10.14
 
 - fix: guard sentry proxy on value not pointer — services without SENTRY_PROXY now send events direct instead of silently failing
 
