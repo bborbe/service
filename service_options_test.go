@@ -8,6 +8,7 @@ import (
 	"context"
 	"errors"
 
+	liberrors "github.com/bborbe/errors"
 	libsentry "github.com/bborbe/sentry"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -62,8 +63,8 @@ var _ = Describe("Options", func() {
 			opts := service.NewOptions()
 
 			Expect(opts).NotTo(BeNil())
-			// Should have default excluded errors (context.Canceled, context.DeadlineExceeded)
-			Expect(opts.ExcludeErrors).To(HaveLen(2))
+			// Should have default excluded errors (context.Canceled, context.DeadlineExceeded, transient)
+			Expect(opts.ExcludeErrors).To(HaveLen(3))
 		})
 	})
 
@@ -110,6 +111,25 @@ var _ = Describe("Options", func() {
 			}
 			Expect(excluded).To(BeFalse(), "Should not exclude random errors")
 		})
+
+		It("excludes errors marked transient by default", func() {
+			opts := service.NewOptions()
+			err := &transientError{msg: "transient", transient: true}
+
+			wrappedOnce := liberrors.Wrapf(context.Background(), err, "level 1")
+			wrappedTwice := liberrors.Wrapf(context.Background(), wrappedOnce, "level 2")
+
+			Expect(opts.ExcludeErrors.IsExcluded(wrappedTwice)).To(BeTrue(),
+				"Should exclude an error marked transient")
+		})
+
+		It("does not exclude errors whose transient marker returns false", func() {
+			opts := service.NewOptions()
+			err := &transientError{msg: "not transient", transient: false}
+
+			Expect(opts.ExcludeErrors.IsExcluded(err)).To(BeFalse(),
+				"Should not exclude an error whose Transient() returns false")
+		})
 	})
 
 	Context("Customizing Options", func() {
@@ -138,8 +158,8 @@ var _ = Describe("Options", func() {
 				},
 			)
 
-			// Should have 2 default + 1 custom = 3 total
-			Expect(opts.ExcludeErrors).To(HaveLen(3))
+			// Should have 3 default + 1 custom = 4 total
+			Expect(opts.ExcludeErrors).To(HaveLen(4))
 
 			// Verify context.Canceled is still excluded
 			excluded := false
@@ -192,8 +212,8 @@ var _ = Describe("Options", func() {
 				addCustomExclude("error 2"),
 			)
 
-			// Should have 2 default + 2 custom = 4 total
-			Expect(opts.ExcludeErrors).To(HaveLen(4))
+			// Should have 3 default + 2 custom = 5 total
+			Expect(opts.ExcludeErrors).To(HaveLen(5))
 
 			// Test that custom errors are excluded
 			err1 := errors.New("error 1")
@@ -249,8 +269,8 @@ var _ = Describe("Options", func() {
 				},
 			)
 
-			// Should have 2 default + 2 custom = 4 total
-			Expect(opts.ExcludeErrors).To(HaveLen(4))
+			// Should have 3 default + 2 custom = 5 total
+			Expect(opts.ExcludeErrors).To(HaveLen(5))
 		})
 	})
 })
@@ -262,4 +282,19 @@ type customError struct {
 
 func (e *customError) Error() string {
 	return e.msg
+}
+
+// transientError is a test error type that marks itself as transient via a
+// structural Transient() bool method.
+type transientError struct {
+	msg       string
+	transient bool
+}
+
+func (e *transientError) Error() string {
+	return e.msg
+}
+
+func (e *transientError) Transient() bool {
+	return e.transient
 }

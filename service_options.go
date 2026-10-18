@@ -24,6 +24,9 @@ type OptionsFn func(option *Options)
 // NewOptions creates a new Options instance with sensible defaults and applies the given
 // functional options. By default, context.Canceled and context.DeadlineExceeded errors
 // are excluded from Sentry reporting as they represent expected shutdown conditions.
+// Errors whose chain contains a value implementing interface{ Transient() bool } that
+// returns true are also excluded, allowing libraries to mark expected, self-resolving
+// conditions without the framework depending on them.
 func NewOptions(fns ...OptionsFn) Options {
 	options := Options{
 		ExcludeErrors: sentry.ExcludeErrors{
@@ -32,6 +35,10 @@ func NewOptions(fns ...OptionsFn) Options {
 			},
 			func(err error) bool {
 				return stderrors.Is(err, context.DeadlineExceeded)
+			},
+			func(err error) bool {
+				var transient interface{ Transient() bool }
+				return stderrors.As(err, &transient) && transient.Transient()
 			},
 		},
 	}
