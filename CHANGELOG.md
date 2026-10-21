@@ -8,6 +8,10 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## Unreleased
+
+- chore: update Go to 1.27.3 and github.com/bborbe/argument/v2 to v2.13.6, github.com/bborbe/errors to v1.6.3, github.com/bborbe/http to v1.26.30, github.com/bborbe/run to v1.11.2, github.com/bborbe/sentry to v1.10.5, github.com/onsi/ginkgo/v2 to v2.33.1
+
 ## v1.11.0
 
 - feat: default Sentry exclusion list drops errors a library has marked transient via a structural `Transient() bool` interface
