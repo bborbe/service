@@ -1,6 +1,6 @@
 module github.com/bborbe/service
 
-go 1.27.3
+go 1.27.4
 
 require (
 	github.com/bborbe/argument/v2 v2.13.10
