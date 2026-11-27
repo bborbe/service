@@ -8,6 +8,10 @@ Please choose versions by [Semantic Versioning](http://semver.org/).
 * MINOR version when you add functionality in a backwards-compatible manner, and
 * PATCH version when you make backwards-compatible bug fixes.
 
+## Unreleased
+
+- chore: update github.com/bborbe/argument/v2 to v2.13.13, github.com/bborbe/errors to v1.7.1, github.com/bborbe/http to v1.28.1, github.com/bborbe/run to v1.13.0, github.com/bborbe/sentry to v1.11.1
+
 ## v1.12.2
 
 - chore: remove orphaned section comments left in `.trivyignore` by the stale-ignore sweep
